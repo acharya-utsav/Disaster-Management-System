@@ -24,7 +24,12 @@ public:
         status = "Pending";
     }
 
-    // Input disaster details
+
+    int getDisasterID()
+    {
+    return disasterID;
+    }
+
     void inputDisaster()
     {
         cout << "\nEnter Disaster ID: ";
@@ -62,7 +67,8 @@ public:
 
 int main()
 {
-    Disaster d;
+    Disaster disaster[100];
+    int totalDisasters = 0;
     int choice;
 
     do
@@ -71,7 +77,7 @@ int main()
         cout << "\n DISASTER MANAGEMENT SYSTEM";
         cout << "\n==========================================";
         cout << "\n1. Report New Disaster";
-        cout << "\n2. View Disaster";
+        cout << "\n2. View All Disasters";
         cout << "\n3. Exit";
         cout << "\n==========================================";
         cout << "\nEnter your choice: ";
@@ -79,20 +85,41 @@ int main()
 
         switch(choice)
         {
-            case 1:
-                d.inputDisaster();
-                break;
+        case 1:
+            if(totalDisasters < 100)
+            {
+                disaster[totalDisasters].inputDisaster();
+                totalDisasters++;
+                cout << "\nDisaster added successfully!\n";
+            }
+            else
+            {
+                cout << "\nStorage Full!\n";
+            }
+            break;
 
-            case 2:
-                d.displayDisaster();
-                break;
+        case 2:
+            if(totalDisasters == 0)
+            {
+                cout << "\nNo disaster records found.\n";
+            }
+            else
+            {
+                cout << "\n===== ALL DISASTER RECORDS =====\n";
 
-            case 3:
-                cout << "\nThank you for using the system.\n";
-                break;
+                for(int i = 0; i < totalDisasters; i++)
+                {
+                    disaster[i].displayDisaster();
+                }
+            }
+            break;
 
-            default:
-                cout << "\nInvalid Choice!\n";
+        case 3:
+            cout << "\nThank you for using the system.\n";
+            break;
+
+        default:
+            cout << "\nInvalid Choice!\n";
         }
 
     } while(choice != 3);
