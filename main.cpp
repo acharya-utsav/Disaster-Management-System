@@ -24,12 +24,6 @@ public:
         status = "Pending";
     }
 
-
-    int getDisasterID()
-    {
-    return disasterID;
-    }
-
     void inputDisaster()
     {
         cout << "\nEnter Disaster ID: ";
@@ -51,7 +45,6 @@ public:
         status = "Pending";
     }
 
-    // Display disaster details
     void displayDisaster()
     {
         cout << "\n----------------------------------";
@@ -63,7 +56,39 @@ public:
         cout << "\nStatus        : " << status;
         cout << "\n----------------------------------\n";
     }
+
+    int getID()
+    {
+        return disasterID;
+    }
+
+    void updateStatus()
+    {
+        int ch;
+        cout << "\nCurrent Status: " << status;
+        cout << "\nSelect New Status";
+        cout << "\n1. Pending";
+        cout << "\n2. Ongoing";
+        cout << "\n3. Resolved";
+        cout << "\nEnter choice: ";
+        cin >> ch;
+
+        if (ch == 1)
+            status = "Pending";
+        else if (ch == 2)
+            status = "Ongoing";
+        else if (ch == 3)
+            status = "Resolved";
+        else
+        {
+            cout << "\nInvalid choice!\n";
+            return;
+        }
+
+        cout << "\nStatus Updated Successfully!\n";
+    }
 };
+
 
 int main()
 {
@@ -78,51 +103,101 @@ int main()
         cout << "\n==========================================";
         cout << "\n1. Report New Disaster";
         cout << "\n2. View All Disasters";
-        cout << "\n3. Exit";
+        cout << "\n3. Search Disaster";
+        cout << "\n4. Update Disaster Status";
+        cout << "\n5. Exit";
         cout << "\n==========================================";
         cout << "\nEnter your choice: ";
-        cin >> choice;
+        while (!(cin >> choice))
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+                cout << "Invalid input! Enter again: ";
+        }
 
         switch(choice)
         {
-        case 1:
-            if(totalDisasters < 100)
-            {
-                disaster[totalDisasters].inputDisaster();
-                totalDisasters++;
-                cout << "\nDisaster added successfully!\n";
-            }
-            else
-            {
-                cout << "\nStorage Full!\n";
-            }
-            break;
+            case 1:
+                if(totalDisasters < 100)
+                {
+                    disaster[totalDisasters].inputDisaster();
+                    totalDisasters++;
+                    cout << "\nDisaster added successfully!\n";
+                }
+                else
+                {
+                    cout << "\nStorage Full!\n";
+                }
+                break;
 
-        case 2:
-            if(totalDisasters == 0)
-            {
-                cout << "\nNo disaster records found.\n";
-            }
-            else
-            {
-                cout << "\n===== ALL DISASTER RECORDS =====\n";
+            case 2:
+                if(totalDisasters == 0)
+                {
+                    cout << "\nNo disaster records found.\n";
+                }
+                else
+                {
+                    cout << "\n===== ALL DISASTER RECORDS =====\n";
+                    for(int i = 0; i < totalDisasters; i++)
+                    {
+                        disaster[i].displayDisaster();
+                    }
+                }
+                break;
 
+            case 3:
+            {
+                int id;
+                bool found = false;
+                cout << "\nEnter Disaster ID to Search: ";
+                cin >> id;
                 for(int i = 0; i < totalDisasters; i++)
                 {
-                    disaster[i].displayDisaster();
+                    if(disaster[i].getID() == id)
+                    {
+                        disaster[i].displayDisaster();
+                        found = true;
+                        break;
+                    }
                 }
+                if(!found)
+                {
+                    cout << "\nDisaster Record Not Found!\n";
+                }
+                break;
             }
-            break;
 
-        case 3:
-            cout << "\nThank you for using the system.\n";
-            break;
+            case 4:
+            {
+                int id;
+                bool found = false;
+                cout << "\nEnter Disaster ID to Update: ";
+                cin >> id;
+                for(int i = 0; i < totalDisasters; i++)
+                {
+                    if(disaster[i].getID() == id)
+                        {
+                            disaster[i].updateStatus();
+                            found = true;
+                            break;
+                        }
+                }
+                if(!found)
+                {
+                    cout << "\nDisaster Record Not Found!\n";
+                }
+                break;
+            }
 
-        default:
-            cout << "\nInvalid Choice!\n";
+            case 5:
+                cout << "\nThank you for using the system.\n";
+                break;
+
+            default:
+                cout << "\nInvalid Choice!\n";
         }
 
-    } while(choice != 3);
+    } while(choice != 5);
 
     return 0;
 }
