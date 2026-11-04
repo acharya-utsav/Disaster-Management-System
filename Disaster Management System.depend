@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1785235662 source:b:\disaster-management-system\main.cpp
+1785280718 source:b:\disaster-management-system\main.cpp
 	<iostream>
+	<fstream>
+	<iomanip>
 	<string>
-	<limits>
 

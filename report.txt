@@ -1,0 +1,4 @@
+========== DISASTER REPORT ==========
+Total Disasters : 1
+Total Teams     : 1
+Total Resources : 1

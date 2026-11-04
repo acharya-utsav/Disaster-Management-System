@@ -1,0 +1,13 @@
+2
+1
+Fire
+Kathmandu
+2007/2/20
+Medium
+Pending
+101
+Earthquake
+Rolpa
+2009/1/15
+Critical
+Pending
